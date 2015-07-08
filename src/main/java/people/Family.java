@@ -3,47 +3,44 @@ package people;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Family {
+public class Family implements Comparable<Family>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@OneToMany(mappedBy="family", cascade=CascadeType.ALL)
-	private Set<Person> familyMembers = new HashSet<Person>();
+//	@OneToMany
+//	private Set<Person> familyMembers = new HashSet<Person>();
 	
 	private String familyName;
 	
-	public Family(String familyName, Set<Person> familyMembers){
+	public Family(String familyName){
 		this.setFamilyName(familyName);
-		this.familyMembers = familyMembers;
+//		this.familyMembers = familyMembers;
 	}
 	
 	public Family(){
 	}
 	
-	
-	public void setFamilyMembers(Set<Person> familyMembers){
-		this.familyMembers = familyMembers;
-	}
-	
-	public void addFamilyMember(Person person){
-		getFamilyMembers().add(person);
-		person.setFamily(this);
-	}
-	
-	public Set<Person> getFamilyMembers() {
-		return familyMembers;
-	}
+//	public void setFamilyMembers(Set<Person> familyMembers){
+//		this.familyMembers = familyMembers;
+//	}
+//	
+//	public void addFamilyMember(Person person){
+//		getFamilyMembers().add(person);
+////		person.setFamily(this);
+//	}
+//	
+//	public Set<Person> getFamilyMembers() {
+//		return familyMembers;
+//	}
 	
 	public Long getId(){
 		return id;
@@ -94,4 +91,18 @@ public class Family {
 //		}
 //		return super.toString();
 //	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Family){
+			return ((Family)obj).getId() == this.getId();
+		}else{
+			return super.equals(obj);
+		}
+	}
+
+	@Override
+	public int compareTo(Family o) {
+		return this.getId().compareTo(o.getId());
+	}
 }

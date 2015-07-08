@@ -14,6 +14,9 @@ public class UptakeProgrammingTestApplication implements CommandLineRunner{
 	@Autowired
     private FamilyRepository familyRepository;
 	
+	@Autowired
+    private FamilyMembersRepository familyMembersRepository;
+	
     public static void main(String[] args) {
         SpringApplication.run(UptakeProgrammingTestApplication.class, args);
     }
@@ -35,17 +38,17 @@ public class UptakeProgrammingTestApplication implements CommandLineRunner{
 		person3.setLastName("Person");
 		person3 = personRepository.save(person3);
 		
-		Family family1 = new Family();
+		Family family1 = new Family("TEST_FAMILY_1");
 		family1 = familyRepository.save(family1);
-		
-		Family family2 = new Family();
-//		family2.getFamilyMembers().add(person1);
-//		family2.getFamilyMembers().add(person2);
+		Family family2 = new Family("TEST_FAMILY_2");
 		family2 = familyRepository.save(family2);
 		
-		family2.getFamilyMembers().add(person1);
+		FamilyMembers familyMembers = new FamilyMembers();
+		familyMembers.setFamily(family2);
+		familyMembers.addMember(person1);
+		familyMembers.addMember(person3);
 		
-		family2 = familyRepository.save(family2);
+		familyMembersRepository.save(familyMembers);
 		
 //		familyRepository.findAll();
 	}
