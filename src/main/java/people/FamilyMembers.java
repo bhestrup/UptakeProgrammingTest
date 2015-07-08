@@ -8,8 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class FamilyMembers {
@@ -22,7 +22,7 @@ public class FamilyMembers {
 	@JoinColumn(name="family_id")
 	private Family family;
 	
-	@OneToMany
+	@ManyToMany
 	@JoinColumn(name="person_id")
 	private Set<Person> members = new HashSet<Person>();
 	

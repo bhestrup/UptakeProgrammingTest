@@ -56,7 +56,7 @@ public class FamilyController {
 		
 		//Delete the family members entry as well
 		Family family = familyRepository.findOne(id);
-		FamilyMembers familyMembers = familyMembersRepository.findByFamily(family);
+		FamilyMembers familyMembers = familyMembersRepository.findByFamilyId(family.getId());
 		familyMembersRepository.delete(familyMembers.getId());
 		
 		familyRepository.delete(id);
@@ -103,7 +103,7 @@ public class FamilyController {
 		}
 		
 		Family family = familyRepository.findOne(id);
-		FamilyMembers familyMembers = familyMembersRepository.findByFamily(family);
+		FamilyMembers familyMembers = familyMembersRepository.findByFamilyId(family.getId());
 		
 		person = personRepository.findOne(person.getId());
 		
@@ -118,7 +118,7 @@ public class FamilyController {
 	@RequestMapping(value="/{id}/members", method=RequestMethod.GET)
 	public Set<Person> getFamilyMembers(@PathVariable("id") long id){
 		Family family = familyRepository.findOne(id);
-		FamilyMembers familyMembers = familyMembersRepository.findByFamily(family);
+		FamilyMembers familyMembers = familyMembersRepository.findByFamilyId(family.getId());
 		
 		if(familyMembers == null){
 			return null;
@@ -136,7 +136,7 @@ public class FamilyController {
 			return new ResponseEntity<Boolean>(Boolean.FALSE, HttpStatus.BAD_REQUEST);
 		}
 		
-		FamilyMembers familyMembers = familyMembersRepository.findByFamily(family);
+		FamilyMembers familyMembers = familyMembersRepository.findByFamilyId(family.getId());
 		familyMembers.getMembers().remove(person);
 		familyMembersRepository.save(familyMembers);
 		
