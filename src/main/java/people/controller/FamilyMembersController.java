@@ -1,11 +1,12 @@
-package people;
+package people.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import people.repository.FamilyMemberRepository;
+import people.repository.FamilyRepository;
+import people.repository.PersonRepository;
 
 @RestController
 @RequestMapping("/family")
@@ -19,6 +20,6 @@ public class FamilyMembersController {
 	private PersonRepository personRepository;
 	
 	@Autowired
-	private FamilyMembersRepository familyMembersRepository;
+	private FamilyMemberRepository familyMemberRepository;
 
 }

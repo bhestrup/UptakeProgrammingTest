@@ -1,9 +1,15 @@
-package people;
+package people.entity;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Person{
@@ -14,6 +20,10 @@ public class Person{
 	
 	private String firstName;
 	private String lastName;
+	
+	@OneToMany
+	@JsonIgnore
+	private Set<FamilyMember> families = new HashSet<FamilyMember>();
 	
 	public String getFirstName() {
 		return firstName;
@@ -35,11 +45,11 @@ public class Person{
 		this.id = id;
 	}
 	
-//	public Family getFamily() {
-//		return family;
-//	}
-//	public void setFamily(Family family) {
-//		this.family = family;
-//	}
+	public Set<FamilyMember> getFamilies() {
+		return families;
+	}
+	public void setFamily(Set<FamilyMember> families) {
+		this.families = families;
+	}
 	
 }
